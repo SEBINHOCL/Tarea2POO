@@ -11,5 +11,5 @@
   - Vicente Beiza
   - Sebastian Vicuña
 
-# Requerimientos
+# Prerrequisitos
 - IDE IntellIJ
