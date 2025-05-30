@@ -2,9 +2,11 @@
 
 * Profesor: Patricio Olivares
   
-* Ayudantes: - Byron Agurto
-             - Ignacio González
+* Ayudantes:
+  - Byron Agurto
+  - Ignacio González
   
-* Integrantes: - Lucas Andrade
-               - Vicente Beiza
-               - Sebastian Vicuña
+* Integrantes:
+  - Lucas Andrade
+  - Vicente Beiza
+  - Sebastian Vicuña
