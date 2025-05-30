@@ -10,3 +10,6 @@
   - Lucas Andrade
   - Vicente Beiza
   - Sebastian Vicuña
+
+# Requerimientos
+- IDE IntellIJ
