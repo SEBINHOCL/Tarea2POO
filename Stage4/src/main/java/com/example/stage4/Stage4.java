@@ -30,10 +30,12 @@ public class Stage4 extends Application {
         menuBar.getMenus().addAll(menuPublisher, menuSubscriber);
 
         MenuItem menuItemVideoPub = new MenuItem("Video");
-        menuPublisher.getItems().addAll(menuItemVideoPub);
+        MenuItem menuItemGPSPub = new MenuItem("Car's GPS");
+        menuPublisher.getItems().addAll(menuItemVideoPub, menuItemGPSPub);
 
         MenuItem menuItemVideoSub = new MenuItem("Video");
-        menuSubscriber.getItems().addAll(menuItemVideoSub);
+        MenuItem menuItemGPSSub = new MenuItem("Car's GPS");
+        menuSubscriber.getItems().addAll(menuItemVideoSub, menuItemGPSSub);
 
         BorderPane root = new BorderPane();
         root.setTop(menuBar);
@@ -54,8 +56,10 @@ public class Stage4 extends Application {
 
         // Acciones de menú
         menuItemVideoPub.setOnAction(e -> addVideoPub());
+        menuItemGPSPub.setOnAction(e -> addGPSPub());
 
         menuItemVideoSub.setOnAction(e -> addVideoSub());
+        menuItemGPSSub.setOnAction(e -> addGPSSub());
     }
 
     private String getInputString(String prompt) {
@@ -80,6 +84,26 @@ public class Stage4 extends Application {
     }
 
 
+    private void addGPSPub() {
+        try {
+            String name = getInputString("GPS Publisher Name");
+            if (name == null) return;
+
+            String topic = getInputString("GPS Publisher Topic");
+            if (topic == null) return;
+
+            File file = fileChooser.showOpenDialog(primaryStage);
+            if (file == null) return;
+
+            Scanner scanner = new Scanner(file);
+            GPSCarPublisher pub = new GPSCarPublisher(name, broker, topic, scanner);
+            vBoxLeft.getChildren().add(pub.getView());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+
     private void addVideoSub() {
         String name = getInputString("Video Subscriber Name");
         if (name == null) return;
@@ -93,7 +117,23 @@ public class Stage4 extends Application {
         }
     }
 
+
+    private void addGPSSub() {
+        String name = getInputString("GPS Subscriber Name");
+        if (name == null) return;
+
+        String topic = getInputString("GPS Subscriber Topic");
+        if (topic == null) return;
+
+        CarTracker sub = new CarTracker(name, topic);
+        if (broker.subscribe(sub)) {
+            sub.show();
+        }
+    }
+
+
     public static void main(String[] args) {
         launch(args);
     }
 }
+
